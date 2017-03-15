@@ -1,0 +1,27 @@
+{
+  "name": "snapshooter",
+  "version": "0.1.0",
+  "description": "Screenshot utility",
+  "main": "dist/main.js",
+  "scripts": {
+    "prestart": "coffee --output dist --compile src",
+    "start": "node dist/main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "phantom",
+    "snapshoot",
+    "screenshot",
+    "databox",
+    "phantomjs",
+    "snapshooter"
+  ],
+  "author": "Jan Halozan",
+  "license": "ISC",
+  "dependencies": {
+    "minimist": "^1.2.0",
+    "s3-image-uploader": "^1.0.7",
+    "valid-url": "^1.0.9",
+    "webshot": "^0.18.0"
+  }
+}
