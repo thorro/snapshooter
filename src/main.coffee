@@ -38,18 +38,18 @@ webshot url, outPath, options, (err) ->
 
   uploader = new Uploader
     aws:
-      key: process.env.NODE_AWS_KEY,
+      key: process.env.NODE_AWS_KEY
       secret: process.env.NODE_AWS_SECRET
     websockets: false
 
   options =
-    bucket: process.env.NODE_AWS_BUCKET,
-    source: outPath,
-    name: outputName,
+    bucket: process.env.NODE_AWS_BUCKET
+    source: outPath
+    name: outputName
     fileId: outputName
   uploader.upload options
   , (data) ->
-    console.log data.path
+    console.log data.id
     process.exit 0
   , (message, error) ->
     fatalError message, 12
