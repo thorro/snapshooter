@@ -4,6 +4,7 @@ FROM node:7.0.0
 #     apt-get install -y -qq
 
 RUN npm install -g pm2@latest coffee-script
+RUN pm2 install coffeescript
 
 COPY . /usr/app
 WORKDIR /usr/app
@@ -13,4 +14,4 @@ ENV NODE_AWS_BUCKET=GTFO
 ENV NODE_AWS_KEY=GTFO
 ENV NODE_AWS_SECRET=GTFO
 
-CMD ["npm", "start"]
+CMD ["pm2", "start", "src/main.coffee", "--no-daemon"]
