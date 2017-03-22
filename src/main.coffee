@@ -1,9 +1,14 @@
 webshot = require 'webshot'
 validUrl = require 'valid-url'
 express = require 'express'
+fs = require 'fs'
 
 Uploader = require 's3-image-uploader'
 app = express()
+
+unless process.env.NODE_AWS_KEY? and process.env.NODE_AWS_SECRET? and process.env.NODE_AWS_BUCKET
+  console.log 'Missing AWS config'
+  process.exit 1
 
 app.get '/shot', (req, res) ->
   url = req.query.url
@@ -22,6 +27,10 @@ app.get '/shot', (req, res) ->
       height: 1080
 
   webshot url, outPath, options, (err) ->
+    if err?
+      console.log err
+      return res.status(500).send '{"error": "Could not snapshot", "message": "' + err + '"}'
+
     uploader = new Uploader
       aws:
         key: process.env.NODE_AWS_KEY
@@ -36,8 +45,11 @@ app.get '/shot', (req, res) ->
 
     uploader.upload options
     , (data) ->
+      fs.unlinkSync outPath
       res.json data
     , (message, error) ->
+      console.log error
+      fs.unlinkSync outPath
       res.status(500).send '{"error": "Unable to upload file.", "message": "' + message + '", "errorObj": "' + JSON.stringify(error) + '"'
 
 port = process.env.port || 1437
