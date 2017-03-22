@@ -19,7 +19,7 @@
   "author": "Jan Halozan",
   "license": "ISC",
   "dependencies": {
-    "minimist": "^1.2.0",
+    "express": "^4.15.2",
     "s3-image-uploader": "^1.0.7",
     "valid-url": "^1.0.9",
     "webshot": "^0.18.0"
