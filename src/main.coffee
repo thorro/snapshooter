@@ -12,8 +12,8 @@ unless process.env.NODE_AWS_KEY? and process.env.NODE_AWS_SECRET? and process.en
 
 app.get '/shot', (req, res) ->
   url = req.query.url
-  res.status(400).send '{"error": "No URL provided"}' unless url?
-  res.status(400).send '{"error": "No URL provided"}' unless validUrl.isUri url
+  return res.status(400).send '{"error": "No URL provided"}' unless url?
+  return res.status(400).send '{"error": "Invalid URL provided"}' unless validUrl.isUri url
 
   outputName = "#{Math.random().toString(30).substr 2}.jpg"
   outPath = "./data/#{outputName}"
