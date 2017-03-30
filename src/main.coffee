@@ -49,7 +49,8 @@ app.get '/shot', (req, res) ->
       res.json data
     , (message, error) ->
       console.log error
-      fs.unlinkSync outPath
+      if fs.existsSync outPath
+        fs.unlinkSync outPath
       res.status(500).send '{"error": "Unable to upload file.", "message": "' + message + '", "errorObj": "' + JSON.stringify(error) + '"'
 
 port = process.env.port || 1437
